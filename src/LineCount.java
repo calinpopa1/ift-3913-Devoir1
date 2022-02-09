@@ -186,7 +186,7 @@ import java.util.stream.Stream;
 		return densite;
 	}
 
-	
+	//fct 2,3,4 partie 3
 	/*
 	public static float getWCP(String location) throws IOException{
 		Path path=Paths.get(location);
