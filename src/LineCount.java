@@ -186,6 +186,46 @@ import java.util.stream.Stream;
 		return densite;
 	}
 
+	
+	/*
+	public static float getWCP(String location) throws IOException{
+		Path path=Paths.get(location);
+		float count=0;
+		try(Stream<Path> subPaths=Files.walk(path)){
+			
+			List<String> subPathList=subPaths.filter(Files::isRegularFile)
+				.map(Objects::toString)
+				.collect(Collectors.toList());
+
+			for(int i=0;i<subPathList.size();i++){
+				count += getWMC(subPathList.get(i));
+			}
+			
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		return count;
+
+	}
+
+	public static float getClasse_BC(String location) throws IOException {
+
+		float classe_DC= getClassCommentDensity(location);
+		float WMC= getWMC(location);
+		float degre= classe_DC/WMC;
+	
+		return degre;
+	}
+
+	public static float getPaquet_BC(String location) throws IOException{
+		float paquet_DC=getPackageCommentDensity(location);
+		float WCP= getWCP(location);
+		float degre= paquet_DC/WCP;
+
+		return degre;
+	}
+	*/
+
 
 
 
