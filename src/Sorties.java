@@ -41,6 +41,8 @@ public class Sorties {
 				float cloc=LineCount.getNumberOfLines(entryPath);
 				float ccloc=LineCount.getNumberOfCommentLines(entryPath);
 				float cdc=LineCount.getClassCommentDensity(entryPath);
+				int wmc=LineCount.getWMC(entryPath);
+				float cbc=LineCount.getClasse_BC(entryPath);
 				
 				StringJoiner sj=new StringJoiner(""+",");
 				sj.add(entryPath.toString()); //adds chemin
@@ -48,8 +50,8 @@ public class Sorties {
 				sj.add(String.valueOf(cloc));
 				sj.add(String.valueOf(ccloc));
 				sj.add(String.valueOf(cdc));
-				//add WMC
-				//add BC
+				sj.add(String.valueOf(wmc));
+				sj.add(String.valueOf(cbc));
 				
 				//writes the line in the BufferedWriter
 				writer.write(sj.toString());
@@ -64,10 +66,8 @@ public class Sorties {
 			try(DirectoryStream<Path> contents=Files.newDirectoryStream(entry)){
 				for(Path element : contents) {
 					if(!element.isAbsolute()) { //si element n'est pas juste un file
-						//cptFile++;
 						plocTot+=LineCount.getNumberOfLinesPackage(element.toString());
 						pclocTot+=LineCount.getNumberOfCommentLinesPackage(element.toString());
-						//add the ones from part 3
 						
 					}else if(element.getFileName().toString().contains(".java")) { //si element est une classe, interface ou enum
 						plocTot+=LineCount.getNumberOfLines(element.toString());
@@ -86,13 +86,17 @@ public class Sorties {
 				writer.write("chemin, paquet, paquet_LOC, paquet_CLOC, paquet_DC, WCP, paquet_BC");
 				writer.newLine();
 				
+				float wcp=LineCount.getWCP(entryPath);
+				float pbc=LineCount.getPaquet_BC(entryPath);
+				
 				StringJoiner sj=new StringJoiner(""+',');
 				sj.add(entry.toString()); //adds chemin
 				sj.add(entry.getFileName().toString()); //adds name (?? hopefully)
 				sj.add(String.valueOf(plocTot));
 				sj.add(String.valueOf(pclocTot));
 				sj.add(String.valueOf(pclocTot/plocTot));
-				//add the rest of the first package				
+				sj.add(String.valueOf(wcp));
+				sj.add(String.valueOf(pbc));			
 				writer.write(sj.toString());
 				writer.newLine();
 				
@@ -107,19 +111,12 @@ public class Sorties {
 		
 	}
 	
-	
-	/** 
-	 * 
-	 * @param path
-	 * @param type
-	 * @return
-	 */
 	/**
 	 * @param path
 	 * @param type
 	 * @return
 	 */
-	public static int getWMC(String path, boolean type) {
+	/*public static int getWMC(String path, boolean type) {
 		int total=0;
 		Path pathArg=Paths.get(path);
 		//if(type) {
@@ -169,6 +166,6 @@ public class Sorties {
 //		}
 		
 		return total;
-	}
+	}*/
 	
 }

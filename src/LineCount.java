@@ -185,9 +185,64 @@ import java.util.stream.Stream;
 	
 		return densite;
 	}
+	
+	/**
+	 * @param path
+	 * @param type
+	 * @return
+	 */
+	public static int getWMC(String path) {
+		int total=0;
+		Path pathArg=Paths.get(path);
+		//if(type) {
+			try {
+				BufferedReader br=Files.newBufferedReader(pathArg);
+				String line=br.readLine();
+				while(line!=null) {
+					if(line.contains("public")||line.contains("protected")||line.contains("private")||line.contains("static")) {
+						if(line.contains("int")||line.contains("String")||line.contains("float")||line.contains("void")||line.contains("char")||line.contains("double")) {
+							if(line.contains("(")&&line.contains(")")) {
+								total++;
+								line=br.readLine();
+								continue;
+							}
+						}
+					}
+					if(line.contains("if")||line.contains("for")||line.contains("while")||line.contains("switch")) {
+						if(line.contains("(")&&line.contains(")")) {
+							total++;
+						}
+						
+					}
+					
+					
+					line=br.readLine();
+				}
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//		}else {
+//			try(DirectoryStream<Path> contents=Files.newDirectoryStream(pathArg)){
+//				for(Path element : contents) {
+//					if(!element.isAbsolute()) { //si element n'est pas juste un file
+//						total+=complexiteMcCabe(element.toString(),false);
+//					}else if(element.getFileName().toString().contains(".java")) { //si element est une classe, interface ou enum
+//						total+=complexiteMcCabe(element.toString(),true);
+//					}
+//				}
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		
+		return total;
+	}
 
 	//fct 2,3,4 partie 3
-	/*
+	
 	public static float getWCP(String location) throws IOException{
 		Path path=Paths.get(location);
 		float count=0;
@@ -224,7 +279,7 @@ import java.util.stream.Stream;
 
 		return degre;
 	}
-	*/
+	
 
 
 
