@@ -29,7 +29,6 @@ public class Sorties {
 		float pclocTot=0;
 		if(type) {
 			try {
-				//sortie sera vers exit et on ajoute la 1ère ligne avec un saut de ligne
 				BufferedWriter writer=Files.newBufferedWriter(exit);
 				writer.write("chemin, class, classe_LOC, classe_CLOC, classe_DC, WMC, classe_BC");
 				writer.newLine();
@@ -41,17 +40,15 @@ public class Sorties {
 				float cbc=LineCount.getClasse_BC(entryPath);
 				
 				StringJoiner sj=new StringJoiner(""+",");
-				sj.add(entryPath.toString()); //adds chemin
-				sj.add(entry.getFileName().toString()); //adds class name
+				sj.add(entryPath.toString());
+				sj.add(entry.getFileName().toString());
 				sj.add(String.valueOf(cloc));
 				sj.add(String.valueOf(ccloc));
 				sj.add(String.valueOf(cdc));
 				sj.add(String.valueOf(wmc));
 				sj.add(String.valueOf(cbc));
 				
-				//writes the line in the BufferedWriter
 				writer.write(sj.toString());
-				
 				writer.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -61,7 +58,7 @@ public class Sorties {
 		}else {
 			try(DirectoryStream<Path> contents=Files.newDirectoryStream(entry)){
 				for(Path element : contents) {
-					if(!element.isAbsolute()) { //si element n'est pas juste un file
+					if(!element.isAbsolute()) { //si element n'est pas juste un fichier
 						plocTot+=LineCount.getNumberOfLinesPackage(element.toString());
 						pclocTot+=LineCount.getNumberOfCommentLinesPackage(element.toString());
 						
@@ -86,8 +83,8 @@ public class Sorties {
 				float pbc=LineCount.getPaquet_BC(entryPath);
 				
 				StringJoiner sj=new StringJoiner(""+',');
-				sj.add(entry.toString()); //adds chemin
-				sj.add(entry.getFileName().toString()); //adds name
+				sj.add(entry.toString());
+				sj.add(entry.getFileName().toString());
 				sj.add(String.valueOf(plocTot));
 				sj.add(String.valueOf(pclocTot));
 				sj.add(String.valueOf(pclocTot/plocTot));
