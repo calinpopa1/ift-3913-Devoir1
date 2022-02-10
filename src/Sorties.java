@@ -11,12 +11,8 @@ import java.util.List;
 import java.util.StringJoiner;
 
 /**
- * 
- */
-
-/**
- * @author dinak
- *
+ * @author Dina KADA, Calin POPA
+ * Class handling the exit flows with the .csv
  */
 public class Sorties {
 	
@@ -91,7 +87,7 @@ public class Sorties {
 				
 				StringJoiner sj=new StringJoiner(""+',');
 				sj.add(entry.toString()); //adds chemin
-				sj.add(entry.getFileName().toString()); //adds name (?? hopefully)
+				sj.add(entry.getFileName().toString()); //adds name
 				sj.add(String.valueOf(plocTot));
 				sj.add(String.valueOf(pclocTot));
 				sj.add(String.valueOf(pclocTot/plocTot));
@@ -110,62 +106,5 @@ public class Sorties {
 		return null;
 		
 	}
-	
-	/**
-	 * @param path
-	 * @param type
-	 * @return
-	 */
-	/*public static int getWMC(String path, boolean type) {
-		int total=0;
-		Path pathArg=Paths.get(path);
-		//if(type) {
-			try {
-				BufferedReader br=Files.newBufferedReader(pathArg);
-				String line=br.readLine();
-				while(line!=null) {
-					if(line.contains("public")||line.contains("protected")||line.contains("private")||line.contains("static")) {
-						if(line.contains("int")||line.contains("String")||line.contains("float")||line.contains("void")||line.contains("char")||line.contains("double")) {
-							if(line.contains("(")&&line.contains(")")) {
-								total++;
-								System.out.println(line);
-								line=br.readLine();
-								continue;
-							}
-						}
-					}
-					if(line.contains("if")||line.contains("for")||line.contains("while")||line.contains("switch")) {
-						if(line.contains("(")&&line.contains(")")) {
-							total++;
-							System.out.println(line);
-						}
-						
-					}
-					
-					
-					line=br.readLine();
-				}
-				br.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-//		}else {
-//			try(DirectoryStream<Path> contents=Files.newDirectoryStream(pathArg)){
-//				for(Path element : contents) {
-//					if(!element.isAbsolute()) { //si element n'est pas juste un file
-//						total+=complexiteMcCabe(element.toString(),false);
-//					}else if(element.getFileName().toString().contains(".java")) { //si element est une classe, interface ou enum
-//						total+=complexiteMcCabe(element.toString(),true);
-//					}
-//				}
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-		
-		return total;
-	}*/
 	
 }

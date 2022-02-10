@@ -12,12 +12,17 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * Cette méthode compte le nombre de lignes de codes d'une classe java en excluant les commentaires. Elle prend 
- * en entrée le chemin (Path) du fichier java. Cette méthode inclue les sous-méthoodes commentBegan et commentEnded
+ /**
+ * @author Dina KADA, Calin POPA
+ * Class calculating the different metrics
  */
-
- public class LineCount {
+public class LineCount {
+	/**
+	 * Counts the number of lines of the location
+	 * @param location : file or package with the path location
+	 * @return the number of lines of the location
+	 * @throws IOException : exception in case there are issues with the reader
+	 */
 	public static float getNumberOfLines(String location)
 			throws IOException {
 		try (BufferedReader bRead = new BufferedReader(new FileReader(location))) {
@@ -52,7 +57,11 @@ import java.util.stream.Stream;
 	}
 	
 	
-	//Cette méthode vérifie si un commentaire a commencé et si il n'est pas encore terminé
+	/**
+	 * Checks whether or not a comment has begun in the line line
+	 * @param line : line to check
+	 * @return true if a comment has begun, else false
+	 */
 	private static boolean commentBegan(String line) {
 		// Si line = /* */, la methode retourne faux
 		// Si line = /* */ /*, la methode retourne vrai
@@ -74,7 +83,11 @@ import java.util.stream.Stream;
 	}
 	
 	
-	// Cette methode vérifie si un commentaire est terminé et si il n'ya pas un autre commentaire qui a commencé.
+	/**
+	 * Checks whether or not a comment has ended in the line
+	 * @param line : line to check
+	 * @return true if a comment has ended, else false
+	 */
 	private static boolean commentEnded(String line) {
 		// Si line = */ /* , la méthode retourne faux.
 		// Si line = */ /* */, la méthode retourne vrai.
@@ -97,34 +110,43 @@ import java.util.stream.Stream;
 		}
 	}
 
-	//Cette fonction vérifie chaque ligne d'une classe java et retourne le nombre
-	//de commentaires de la classe. Cette méthode prend le chemin de la classe en entrée
+	
+	/**
+	 * Counts the number of comment lines in the location
+	 * @param location : path of the file/package to check
+	 * @return the number of comment lines in the location
+	 * @throws FileNotFoundException : in case there is an error with the file with the path location 
+	 */
 	public static float getNumberOfCommentLines(String location) throws FileNotFoundException{
-	BufferedReader bRead= new BufferedReader(new FileReader(location));
-	String line = "";
-    float count = 0;
-    try {
+		BufferedReader bRead= new BufferedReader(new FileReader(location));
+		String line = "";
+		float count = 0;
+		try {
         
-        while ((line = bRead.readLine()) != null) {
+			while ((line = bRead.readLine()) != null) {
 			
-			if (line.contains("//")) {
-                count++;
-            } else if (line.contains("/*")) {
-                while (!line.contains("*/") && !(line = bRead.readLine()).contains("*/")){
+				if (line.contains("//")) {
 					count++;
-				};
-            }
-        }
-        bRead.close();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+				} else if (line.contains("/*")) {
+					while (!line.contains("*/") && !(line = bRead.readLine()).contains("*/")){
+						count++;
+					};
+				}
+			}
+			bRead.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-    return count;
+		return count;
 	}
 
-
-	//Cette méthode retourne la densité de commentaire d'une classe.
+	/**
+	 * Calculates the density of comments in the class
+	 * @param location : path of the class to check
+	 * @return the density of comments in the class
+	 * @throws IOException : in case there is an error with the methods used
+	 */
 	public static float getClassCommentDensity(String location) throws IOException {
 
 		float CommsC= getNumberOfCommentLines(location);
@@ -133,8 +155,13 @@ import java.util.stream.Stream;
 		return densite;
 	}
 
-	//Cette methode retourne le nombre de lignes de code d'un paquet. On doit lui donner le chemin
-	//du paquet en entrée.
+	
+	/**
+	 * Calculates the number of lines in the package located in location
+	 * @param location : path of the package
+	 * @return the number of lines in the package
+	 * @throws IOException : in case there is an error with the method used
+	 */
 	public static float getNumberOfLinesPackage(String location) throws IOException{
 		Path path=Paths.get(location);
 		float count=0;
@@ -155,7 +182,13 @@ import java.util.stream.Stream;
 
 	}
 
-	//Cette méthode retourne le nombre de commentaires d'un paquet.
+
+	/**
+	 * Calculates the number of comment lines in the package location
+	 * @param location : path of the package to check
+	 * @return the number of comment lines in the package
+	 * @throws IOException : in case there is an error with the method used
+	 */
 	public static float getNumberOfCommentLinesPackage(String location) throws IOException{
 		Path path=Paths.get(location);
 		float count=0;
@@ -176,7 +209,13 @@ import java.util.stream.Stream;
 
 	}
 
-	//Cette méthode retourne la densité de commentaire d'un paquet.
+
+	/**
+	 * Calculates the density of comments in the package location
+	 * @param location : path of the package
+	 * @return the density of comments in the package
+	 * @throws IOException : in case there is an error with the methods used
+	 */
 	public static float getPackageCommentDensity(String location) throws IOException {
 
 		float CommsP= getNumberOfCommentLinesPackage(location);
@@ -187,9 +226,9 @@ import java.util.stream.Stream;
 	}
 	
 	/**
-	 * @param path
-	 * @param type
-	 * @return
+	 * Calculates the Weighted Methods per Class for the class located in path
+	 * @param path : location of the class to check
+	 * @return the WMC of the class
 	 */
 	public static int getWMC(String path) {
 		int total=0;
@@ -241,8 +280,13 @@ import java.util.stream.Stream;
 		return total;
 	}
 
-	//fct 2,3,4 partie 3
 	
+	/**
+	 * Calculates the Weighted Classes per Package of the package located at location
+	 * @param location : path of the package
+	 * @return the WCP of the package
+	 * @throws IOException : in case there is an error with the methods used
+	 */
 	public static float getWCP(String location) throws IOException{
 		Path path=Paths.get(location);
 		float count=0;
@@ -263,6 +307,13 @@ import java.util.stream.Stream;
 
 	}
 
+	
+	/**
+	 * Calculates the BC for the class located at location
+	 * @param location : path of the class to check
+	 * @return the BC for the class
+	 * @throws IOException : in case there is an error with the methods used
+	 */
 	public static float getClasse_BC(String location) throws IOException {
 
 		float classe_DC= getClassCommentDensity(location);
@@ -272,6 +323,13 @@ import java.util.stream.Stream;
 		return degre;
 	}
 
+	
+	/**
+	 * Calculates the BC for the package located at location
+	 * @param location : path of the package to check
+	 * @return the BC for the package
+	 * @throws IOException : in case there is an error with the methods used
+	 */
 	public static float getPaquet_BC(String location) throws IOException{
 		float paquet_DC=getPackageCommentDensity(location);
 		float WCP= getWCP(location);

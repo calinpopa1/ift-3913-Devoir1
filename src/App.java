@@ -8,11 +8,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Dina KADA, Calin POPA
+ * Class used to test the functions
+ */
 public class App {
+    /**
+     * Main method
+     * @param args : arguments of the command line
+     * @throws Exception : many exceptions
+     */
     public static void main(String[] args) throws Exception {
-        
-        
-        
 
         /*System.out.println(LineCount.getNumberOfLines("C:/Users/calin/OneDrive/Desktop/javatest.java"));
 
