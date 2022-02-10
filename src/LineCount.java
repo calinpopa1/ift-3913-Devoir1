@@ -122,9 +122,7 @@ public class LineCount {
 		String line = "";
 		float count = 0;
 		try {
-        
 			while ((line = bRead.readLine()) != null) {
-			
 				if (line.contains("//")) {
 					count++;
 				} else if (line.contains("/*")) {
@@ -148,7 +146,6 @@ public class LineCount {
 	 * @throws IOException : in case there is an error with the methods used
 	 */
 	public static float getClassCommentDensity(String location) throws IOException {
-
 		float CommsC= getNumberOfCommentLines(location);
 		float LinesC= getNumberOfLines(location);
 		float densite= CommsC/LinesC;
@@ -179,7 +176,6 @@ public class LineCount {
 			e.printStackTrace();
 		}
 		return count;
-
 	}
 
 
@@ -193,7 +189,6 @@ public class LineCount {
 		Path path=Paths.get(location);
 		float count=0;
 		try(Stream<Path> subPaths=Files.walk(path)){
-			
 			List<String> subPathList=subPaths.filter(Files::isRegularFile)
 				.map(Objects::toString)
 				.collect(Collectors.toList());
@@ -217,7 +212,6 @@ public class LineCount {
 	 * @throws IOException : in case there is an error with the methods used
 	 */
 	public static float getPackageCommentDensity(String location) throws IOException {
-
 		float CommsP= getNumberOfCommentLinesPackage(location);
 		float LinesP= getNumberOfLinesPackage(location);
 		float densite= CommsP/LinesP;
@@ -233,7 +227,6 @@ public class LineCount {
 	public static int getWMC(String path) {
 		int total=0;
 		Path pathArg=Paths.get(path);
-		//if(type) {
 			try {
 				BufferedReader br=Files.newBufferedReader(pathArg);
 				String line=br.readLine();
@@ -253,8 +246,6 @@ public class LineCount {
 						}
 						
 					}
-					
-					
 					line=br.readLine();
 				}
 				br.close();
@@ -262,20 +253,6 @@ public class LineCount {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//		}else {
-//			try(DirectoryStream<Path> contents=Files.newDirectoryStream(pathArg)){
-//				for(Path element : contents) {
-//					if(!element.isAbsolute()) { //si element n'est pas juste un file
-//						total+=complexiteMcCabe(element.toString(),false);
-//					}else if(element.getFileName().toString().contains(".java")) { //si element est une classe, interface ou enum
-//						total+=complexiteMcCabe(element.toString(),true);
-//					}
-//				}
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 		
 		return total;
 	}
@@ -291,7 +268,6 @@ public class LineCount {
 		Path path=Paths.get(location);
 		float count=0;
 		try(Stream<Path> subPaths=Files.walk(path)){
-			
 			List<String> subPathList=subPaths.filter(Files::isRegularFile)
 				.map(Objects::toString)
 				.collect(Collectors.toList());
@@ -315,7 +291,6 @@ public class LineCount {
 	 * @throws IOException : in case there is an error with the methods used
 	 */
 	public static float getClasse_BC(String location) throws IOException {
-
 		float classe_DC= getClassCommentDensity(location);
 		float WMC= getWMC(location);
 		float degre= classe_DC/WMC;
