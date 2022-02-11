@@ -21,6 +21,15 @@ public class App {
      * @throws Exception : many exceptions
      */
     public static void main(String[] args) throws Exception {
+        if(args.length!=2) {
+        	System.out.println("Arguments = [chemin entrée] [chemin sortie]");
+        }
+        
+        if(args[0].contains(".java")) {
+        	Sorties.exitFile(args[0], args[1]+"classes.csv", true);
+        }else {
+        	Sorties.exitFile(args[0], args[1]+"paquets.csv", false);
+        }
         /*
         System.out.println(LineCount.getNumberOfLines("C:/Users/calin/OneDrive/Desktop/javatest.java"));
 
@@ -40,7 +49,7 @@ public class App {
 
 
         System.out.println(LineCount.getPackageCommentDensity("C:/Users/calin/OneDrive/Desktop/foldertest"));
-        */
+        
         
         
     	
@@ -57,7 +66,7 @@ public class App {
         
 
         
-        /*
+        
         System.out.println("paquet_BC "+LineCount.getPaquet_BC("C:\\Users\\calin\\OneDrive\\Desktop\\ifreechart-src\\main\\java\\org\\jfree\\chart\\annotations"));
     
         System.out.println("paquet_BC "+LineCount.getPaquet_BC("C:\\Users\\calin\\OneDrive\\Desktop\\ifreechart-src\\main\\java\\org\\jfree\\chart\\api"));
